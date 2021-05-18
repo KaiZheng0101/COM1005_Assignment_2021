@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="LatexReportTemplate">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/LatexReportTemplate.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
