@@ -36,8 +36,11 @@ public class RunRamblersBB {
         SearchState4 initState = (SearchState4) new RamblersState(new Coords(ys, xs), 0, 0);
 
 
-        String res_bb = searcher.runSearch(initState, "branchAndBound");
-        System.out.println(res_bb);
+       //String res_bb = searcher.runSearch(initState, "branchAndBound");
+       //System.out.println(res_bb);
+
+       String res_aa = searcher.runSearch(initState, "AStar");
+       System.out.println(res_aa);
 
     }
 }
