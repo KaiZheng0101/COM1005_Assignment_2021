@@ -6,28 +6,29 @@
 
 import java.util.*;
 
-public abstract class Search {
+public abstract class Search3 {
 
-  protected SearchNode initNode; // initial node
-  protected SearchNode currentNode; // current node
-  protected SearchNode old_node; // node found on open with same state as new one
-  protected ArrayList<SearchNode> open; // open - list of SearchNodes
-  protected ArrayList<SearchNode> closed; // closed
-  protected ArrayList<SearchNode> successorNodes; // used in expand & vetSuccessors
+  protected SearchNode3 initNode; // initial node 初始节点
+  protected SearchNode3 currentNode; // current node  当前节点
+  protected SearchNode3 old_node; // node found on open with same state as new one （在打开时发现与新节点状态相同的节点）
+  protected ArrayList<SearchNode3> open; // open - list of SearchNodes
+  protected ArrayList<SearchNode3> closed; // closed
+  protected ArrayList<SearchNode3> successorNodes; // used in expand & vetSuccessors
 
   // run a search
-  public String runSearch(SearchState initState, String strat) {
+  public String runSearch(SearchState3 initState, String strat) {
 
-    initNode = new SearchNode(initState, 0); // create initial node
+    initNode = new SearchNode3(initState, 0, 0); // create initial node
     initNode.setGlobalCost(0); // change from search2
 
     // change from search1 - print strategy
     System.out.println("Starting " + strat + " Search");
 
-    open = new ArrayList<SearchNode>(); // initial open, closed
+    open = new ArrayList<SearchNode3>(); // initial open, closed
     open.add(initNode);
-    closed = new ArrayList<SearchNode>();
+    closed = new ArrayList<SearchNode3>();
 
+    //数值迭代
     int numIteration = 1;
 
     while (!open.isEmpty()) {
@@ -36,13 +37,14 @@ public abstract class Search {
       System.out.println("-------------------------");
       System.out.println("iteration no " + numIteration);
       System.out.println("open is");
-      for (SearchNode nn : open) {
+      for (SearchNode3 nn : open) {
         String nodestr = nn.toString();
         System.out.println(nodestr);
       }
 
-      selectNode(strat); // change from search1 -selectNode selects next node given strategy,
+      selectNode(strat); // change from search1 -selectNode selects next node given strategy,（selectNode选择给定策略的下一个节点）
       // makes it currentNode & removes it from open
+      // （将其设置为currentNode并将其从打开状态中删除）
       System.out.println("Current node: " + currentNode.toString());
 
       if (currentNode.goalPredicate(this))
@@ -59,15 +61,17 @@ public abstract class Search {
   }
 
   // expand current node
+  // 扩展当前节点
   private void expand() {
 
     // get all successor nodes
-    successorNodes = currentNode.getSuccessors(this); // pass search instance
+    // 获取所有后继节点
+    successorNodes = currentNode.getSuccessors(this); // pass search instance 通过搜索实例
 
     // change from search2
     // set global costs and parents for successors
 
-    for (SearchNode snode : successorNodes) {
+    for (SearchNode3 snode : successorNodes) {
       snode.setGlobalCost(currentNode.getGlobalCost() + snode.getLocalCost());
       snode.setParent(currentNode);
     }
@@ -75,17 +79,19 @@ public abstract class Search {
     vetSuccessors(); // filter out unwanted - DP check
 
     // add surviving nodes to open
-    for (SearchNode snode : successorNodes)
+    // 添加尚存的节点以打开
+    for (SearchNode3 snode : successorNodes)
       open.add(snode);
   }
 
   // vet the successors - reject any whose states are on open or closed
+  // 拒绝任何处于打开或关闭状态的节点
   // change from search2 to do DP check
 
   private void vetSuccessors() {
-    ArrayList<SearchNode> vslis = new ArrayList<SearchNode>();
+    ArrayList<SearchNode3> vslis = new ArrayList<SearchNode3>();
 
-    for (SearchNode snode : successorNodes) {
+    for (SearchNode3 snode : successorNodes) {
       if (!(onClosed(snode))) { // if on closed, ignore
         if (!(onOpen(snode))) {
           vslis.add(snode); // if not on open, add it
@@ -102,10 +108,10 @@ public abstract class Search {
     successorNodes = vslis;
   }
 
-  // onClosed - is the state for a node the same as one on closed?
-  private boolean onClosed(SearchNode newNode) {
+  // onClosed - is the state for a node the same as one on closed? 节点的状态与关闭时的状态相同吗？
+  private boolean onClosed(SearchNode3 newNode) {
     boolean ans = false;
-    for (SearchNode closedNode : closed) {
+    for (SearchNode3 closedNode : closed) {
       if (newNode.sameState(closedNode))
         ans = true;
     }
@@ -114,11 +120,12 @@ public abstract class Search {
 
   // onOpen - is the state for a node the same as one on open?
   // if node found, remember it in old_node
-  private boolean onOpen(SearchNode newNode) {
+  private boolean onOpen(SearchNode3 newNode) {
     boolean ans = false;
+    //设置迭代器
     Iterator ic = open.iterator();
-    while ((ic.hasNext()) && !ans) { // there can only be one node on open with same state
-      SearchNode openNode = (SearchNode) ic.next();
+    while ((ic.hasNext()) && !ans) { // there can only be one node on open with same state 打开时只能有一个节点处于相同状态
+      SearchNode3 openNode = (SearchNode3) ic.next();
       if (newNode.sameState(openNode)) {
         ans = true;
         old_node = openNode;
@@ -139,21 +146,21 @@ public abstract class Search {
 
   private void depthFirst() {
     int osize = open.size();
-    currentNode = (SearchNode) open.get(osize - 1); // last node added to open
+    currentNode = (SearchNode3) open.get(osize - 1); // last node added to open
     open.remove(osize - 1); // remove it
   }
 
   private void breadthFirst() {
-    currentNode = (SearchNode) open.get(0); // first node on open
+    currentNode = (SearchNode3) open.get(0); // first node on open
     open.remove(0);
   }
 
   // change from search2
   private void branchAndBound() {
     Iterator i = open.iterator();
-    SearchNode minCostNode = (SearchNode) i.next();
+    SearchNode3 minCostNode = (SearchNode3) i.next();
     for (; i.hasNext();) {
-      SearchNode n = (SearchNode) i.next();
+      SearchNode3 n = (SearchNode3) i.next();
       if (n.getGlobalCost() < minCostNode.getGlobalCost()) {
         minCostNode = n;
       }
@@ -167,7 +174,7 @@ public abstract class Search {
   // report success - reconstruct path, convert to string & return
   private String reportSuccess() {
 
-    SearchNode n = currentNode;
+    SearchNode3 n = currentNode;
     StringBuffer buf = new StringBuffer(n.toString());
     int plen = 1;
 
