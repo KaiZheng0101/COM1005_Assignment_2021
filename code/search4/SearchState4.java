@@ -11,7 +11,7 @@
 
 import java.util.*;
 
-public abstract class SearchState {
+public abstract class SearchState4 {
 
   // change from search2 - need to give local cost
   protected int localCost;
@@ -19,14 +19,14 @@ public abstract class SearchState {
   protected int estRemCost;
 
   /**
-  * accessor for local cost
-  */
-  public int getLocalCost(){
+   * accessor for local cost
+   */
+  public int getLocalCost() {
     return localCost;
   }
 
   // A*
-  public int getestRemCost(){
+  public int getestRemCost() {
     return estRemCost;
   }
 
@@ -34,8 +34,9 @@ public abstract class SearchState {
   // must implement goalPredicate, getSuccessors, sameState, toString
   // goalPredicate takes a SearchNode & returns a boolean if it's a goal
 
-  abstract boolean goalPredicate(Search searcher);
-  abstract ArrayList<SearchState> getSuccessors(Search searcher);
-  abstract boolean sameState(SearchState n2);
+  abstract boolean goalPredicate(Search4 searcher);
 
+  abstract ArrayList<SearchState4> getSuccessors(Search4 searcher);
+
+  abstract boolean sameState(SearchState4 n2);
 }
