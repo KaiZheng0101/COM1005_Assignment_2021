@@ -1,3 +1,8 @@
+import javafx.beans.binding.ListExpression;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+
 /**
  * Coords.java
  *
