@@ -1,3 +1,7 @@
+import javafx.beans.binding.ListExpression;
+
+import java.util.Iterator;
+
 /**
  * Coords.java
  *
@@ -27,5 +31,6 @@ public class Coords {
   public int gety() {
     return y;
   };
+
 
 }
