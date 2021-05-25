@@ -15,7 +15,7 @@ public class RamblersState extends SearchState4{
  public RamblersState(Coords c , int lc, double rc) {
   this.c = c;
   this.localCost = lc;
-  this.estRemCost = rc;
+  this.estRemCost = (int) rc;
  }
 
  @Override
