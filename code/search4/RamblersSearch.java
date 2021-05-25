@@ -11,19 +11,18 @@ import java.util.*;
 public class RamblersSearch extends Search4 {
 
     private TerrainMap map; // map we're searching
-    private String goal; // goal city
+    private Coords goal; // goal city
 
     public TerrainMap getMap() {
         return map;
     }
 
-    public String getGoal() {
+    public Coords getGoal() {
         return goal;
     }
 
-    public RamblersSearch(TerrainMap m, String g) {
+    public RamblersSearch(TerrainMap m, Coords g) {
         map = m;
         goal = g;
     }
-
 }
