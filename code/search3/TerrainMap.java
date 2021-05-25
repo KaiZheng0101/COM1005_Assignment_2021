@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.util.*;
 
 public class TerrainMap {
-  private int[][] tmap; // the map, array of pixels
+  private int[][] tmap; // the map, array of pixels 像素数组
   private int width; // max x dimension
   private int depth; // max y dimension
   private int height; // max height
@@ -39,11 +39,12 @@ public class TerrainMap {
     return height;
   };
 
-  private static final int MAXVAL = 255; // We'll use a constant maximum greyscale value
+  private static final int MAXVAL = 255; // We'll use a constant maximum greyscale value（我们将使用一个常量最大灰度值）
 
   /**
    * constructor, given a PGM image Reads a PGM file. The maximum greyscale value
    * is rescaled to be between 0 and 255.
+   * 读取一个PGM文件。最大灰度值被重新调整为0到255之间。
    * 
    * @param filename
    * @return
@@ -56,7 +57,7 @@ public class TerrainMap {
       if (!scanner.hasNextInt()) {
         irfan = scanner.nextLine();
       }
-      ; // advance until next Int
+      ; // advance until next Int （前进到下一个Int）
       if (!scanner.hasNextInt()) {
         irfan = scanner.nextLine();
       }
@@ -83,6 +84,8 @@ public class TerrainMap {
   }
 
   // write a terrain map to a file
+  // 将地形图写入文件
+
   public void writeTMap(String fname) {
 
     try {
@@ -104,9 +107,9 @@ public class TerrainMap {
     }
 
   }
-  // show a path on a terrain map
-  // path is ArrayList of Coords
-  // make every pixel on path 255
+  // show a path on a terrain map 显示地形地图上的路径
+  // path is ArrayList of Coords 路径是坐标的数组列表
+  // make every pixel on path 255 设置路径255上的每个像素
 
   public void showPath(ArrayList<Coords> path) {
     for (Coords c : path)

@@ -10,7 +10,7 @@
 
 import java.util.*;
 
-public abstract class SearchState {
+public abstract class SearchState3 {
 
   // change from search2 - need to give local cost
   protected int localCost;
@@ -27,10 +27,9 @@ public abstract class SearchState {
 
   // goalPredicate takes a SearchNode & returns a boolean if it's a goal
 
-  abstract boolean goalPredicate(Search searcher);
+  abstract boolean goalPredicate(Search3 searcher);
 
-  abstract ArrayList<SearchState> getSuccessors(Search searcher);
+  abstract ArrayList<SearchState3> getSuccessors(Search3 searcher);
 
-  abstract boolean sameState(SearchState n2);
-
+  abstract boolean sameState(SearchState3 n2);
 }
