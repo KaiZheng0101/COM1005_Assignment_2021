@@ -118,6 +118,7 @@ public class TerrainMap {
     }
 
     public int localCost(Coords c1, Coords c2) {
+
         int h1 = tmap[c1.gety()][c1.getx()];
         int h2 = tmap[c2.gety()][c2.getx()];
         if (h2 <= h1) {
