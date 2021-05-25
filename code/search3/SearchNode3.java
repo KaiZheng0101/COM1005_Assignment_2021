@@ -10,25 +10,25 @@
 
 import java.util.*;
 
-public class SearchNode {
+public class SearchNode3 {
 
-  private SearchState state;
+  private SearchState3 state;
   // change from search2
   private int Cost;
   private int globalCost;
   private int localCost;
 
-  private SearchNode parent; // the parent node
+  private SearchNode3 parent; // the parent node
 
   /**
    * constructor
-   * 
-   * @param s  a SearchState
+   *  @param s  a SearchState
+   * @param i
    * @param lc local cost of getting to this node from its predecessor
    */
 
-  public SearchNode(SearchState s, int lc) {
-    state = (SearchState) s;
+  public SearchNode3(SearchState3 s, int i, int lc) {
+    state = (SearchState3) s;
     localCost = lc; // change from search2
   }
 
@@ -36,22 +36,23 @@ public class SearchNode {
    * accessor for state
    */
 
-  public SearchState get_State() {
+  public SearchState3 get_State() {
     return state;
   }
 
   /**
    * accessor for parent
+   * 存储器
    */
 
-  public SearchNode getParent() {
+  public SearchNode3 getParent() {
     return parent;
   }
 
   /**
    * mutator for parent
    */
-  public void setParent(SearchNode n) {
+  public void setParent(SearchNode3 n) {
     parent = n;
   }
 
@@ -93,11 +94,11 @@ public class SearchNode {
 
   /**
    * goalPredicate takes a SearchNode & returns true if it's a goal
-   * 
+   *
    * @param searcher the current search
    */
 
-  public boolean goalPredicate(Search searcher) {
+  public boolean goalPredicate(Search3 searcher) {
     return state.goalPredicate(searcher);
   }
 
@@ -108,12 +109,12 @@ public class SearchNode {
    * @return ArrayList of successor nodes
    */
 
-  public ArrayList<SearchNode> getSuccessors(Search searcher) {
-    ArrayList<SearchState> slis = state.getSuccessors(searcher);
-    ArrayList<SearchNode> nlis = new ArrayList<SearchNode>();
+  public ArrayList<SearchNode3> getSuccessors(Search3 searcher) {
+    ArrayList<SearchState3> slis = state.getSuccessors(searcher);
+    ArrayList<SearchNode3> nlis = new ArrayList<SearchNode3>();
 
-    for (SearchState suc_state : slis) {
-      SearchNode n = new SearchNode(suc_state, suc_state.getLocalCost());
+    for (SearchState3 suc_state : slis) {
+      SearchNode3 n = new SearchNode3(suc_state, 0, suc_state.getLocalCost());
       nlis.add(n);
     }
     return nlis;
@@ -125,7 +126,7 @@ public class SearchNode {
    * @param n2 the other node
    */
 
-  public boolean sameState(SearchNode n2) {
+  public boolean sameState(SearchNode3 n2) {
     return state.sameState(n2.get_State());
   }
 
