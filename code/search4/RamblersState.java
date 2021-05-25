@@ -8,11 +8,10 @@
 
 import java.util.*;
 
-public class RamblersState extends SearchState4{
-
+public class RamblersState extends SearchState4 {
  private Coords c;
 
- public RamblersState(Coords c , int lc, double rc) {
+ public RamblersState(Coords c, int lc, double rc) {
   this.c = c;
   this.localCost = lc;
   this.estRemCost = (int) rc;
@@ -33,21 +32,21 @@ public class RamblersState extends SearchState4{
   int cn = tm.getWidth();
   int x = c.getx();
   int y = c.gety();
-  if(x-1>=0) {
-   Coords next = new Coords(y, x-1);
-   succs.add(new RamblersState(next, tm.localCost(c,next), tm.estBetween(next, rs.getGoal(), "Manhattan")));
+  if (x - 1 >= 0) {
+   Coords next = new Coords(y, x - 1);
+   succs.add(new RamblersState(next, tm.localCost(c, next), tm.estBetween(next, rs.getGoal(), "Euclidean")));
   }
-  if(x+1<cn) {
-   Coords next = new Coords(y, x+1);
-   succs.add(new RamblersState(next, tm.localCost(c,next), tm.estBetween(next, rs.getGoal(), "Manhattan")));
+  if (x + 1 < cn) {
+   Coords next = new Coords(y, x + 1);
+   succs.add(new RamblersState(next, tm.localCost(c, next), tm.estBetween(next, rs.getGoal(), "Euclidean")));
   }
-  if(y-1>=0) {
-   Coords next = new Coords(y-1,x);
-   succs.add(new RamblersState(next, tm.localCost(c,next), tm.estBetween(next, rs.getGoal(), "Manhattan")));
+  if (y - 1 >= 0) {
+   Coords next = new Coords(y - 1, x);
+   succs.add(new RamblersState(next, tm.localCost(c, next), tm.estBetween(next, rs.getGoal(), "Euclidean")));
   }
-  if(y+1<rn) {
-   Coords next = new Coords(y+1, x);
-   succs.add(new RamblersState(next, tm.localCost(c,next), tm.estBetween(next, rs.getGoal(), "Manhattan")));
+  if (y + 1 < rn) {
+   Coords next = new Coords(y + 1, x);
+   succs.add(new RamblersState(next, tm.localCost(c, next), tm.estBetween(next, rs.getGoal(), "Euclidean")));
   }
   return succs;
  }
@@ -64,6 +63,6 @@ public class RamblersState extends SearchState4{
 
  @Override
  public String toString() {
-  return "row: "+c.gety()+" col: "+c.getx();
+  return "row: " + c.gety() + " col: " + c.getx();
  }
 }
