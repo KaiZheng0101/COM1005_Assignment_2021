@@ -19,8 +19,8 @@ public class SearchNode4 {
   private int Cost;
   private int globalCost;
   private int localCost;
-  private int estRemCost; //A*
-  private int estTotalCost; //A*
+  private double estRemCost; //A*
+  private double estTotalCost; //A*
 
   private SearchNode4 parent; // the parent node
 
@@ -44,7 +44,7 @@ public class SearchNode4 {
    * @param lc local cost of getting to this node from its predecessor
    */
 
-  public SearchNode4(SearchState4 s, int lc, int erc) {
+  public SearchNode4(SearchState4 s, int lc, double erc) {
     state = (SearchState4) s;
     localCost = lc; // change from search2
     estRemCost=erc;
@@ -114,7 +114,7 @@ public class SearchNode4 {
    * mutator for estremcost
    * for A*
    */
-  public void setestRemCost(int erc) {
+  public void setestRemCost(double erc) {
     estRemCost=erc;
   }
 
@@ -122,7 +122,7 @@ public class SearchNode4 {
    * accessor for estremcost
    * for A*
    */
-  public int getestRemCost() {
+  public double getestRemCost() {
     return estRemCost;
   }
 
@@ -130,7 +130,7 @@ public class SearchNode4 {
    * mutator for esttotalcost
    * for A*
    */
-  public void setestTotalCost(int erc) {
+  public void setestTotalCost(double erc) {
     estTotalCost=erc;
   }
 
@@ -138,7 +138,7 @@ public class SearchNode4 {
    * accessor for esttotalcost
    * for A*
    */
-  public int getestTotalCost() {
+  public double getestTotalCost() {
     return estTotalCost;
   }
 
@@ -164,7 +164,7 @@ public class SearchNode4 {
     ArrayList<SearchNode4> nlis = new ArrayList<SearchNode4>();
 
     for (SearchState4 suc_state : slis) {
-      SearchNode4 n = new SearchNode4(suc_state, suc_state.getLocalCost());
+      SearchNode4 n = new SearchNode4(suc_state, suc_state.getLocalCost(), suc_state.getestRemCost());
       nlis.add(n);
     }
     return nlis;
@@ -187,6 +187,7 @@ public class SearchNode4 {
     else
       parent_state = parent.get_State().toString();
     return "node with state (" + state.toString() + ") parent state (" + parent_state + ") local cost (" + localCost
-            + ") global cost (" + globalCost + ")";
+            + ") global cost (" + globalCost + ")" + "total cost (" + estTotalCost + ")";
   }
+
 }
