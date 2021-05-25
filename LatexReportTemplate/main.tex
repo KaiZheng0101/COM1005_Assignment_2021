@@ -10,9 +10,9 @@
 \usepackage{graphicx}
 
 
-\title{Experimental report for the 2021 COM1005 Assignment: The Rambler's Problem\footnote{Please, add here your github url}}
-\author{Your Name}
-\date{\today}
+\title{Experimental report for the 2021 COM1005 Assignment: The Rambler's Problem\footnote{https://github.com/KaiZheng0101/COM1005_Assignment_2021}
+\author{kai zheng}
+\date{25/05/2021}
 
 
 \begin{document}
@@ -21,48 +21,101 @@
 
 \section{Description of my branch-and-bound implementation}
 
-This is an example of a list in \LaTeX. Table~\ref{tab:my_label} shows something super important.
-
+% This is an example of a list in \LaTeX. Table~\ref{tab:my_label} shows something super important.
+We list the algorithms of Branch and Bound in the following steps:
 \begin{itemize}
-    \item item 1.
-    \item another great item.
+    \item Initially add start node to open set.
+    \item while the open set is not empty: loop through the open set and select the node with the min global cost (that is the cost from start to this node).
+    \item set the selected node as the current node, and add the selected node to the closed set. 
+    \item before expanding the current node, we check if the current node is the goal, if it is the goal, then we report success and track the path.
+    \item expand the current node, adding all the neighbors of that node that is not closed to the open set. When adding the neighbors, calculating the local cost and then the global cost of each neighbor based on the global cost of the current node. 
+    \item if the open set is empty and we still not find the goal point, we report the goal is not reachable.
 \end{itemize}
 
 \section{Description of my A* implementation}
+We list the algorithms of Branch and Bound in the following steps:
+\begin{itemize}
+    \item Initially add start node to open set.
+    \item while the open set is not empty: loop through the open set and select the node with the min total cost (that is the cost from start to this node plus the estimated cost from this node to the goal). Note we used 3 different estimation from the node to the goal: Manhattan, Euclidean, and the height difference. 
+    \item set the selected node as the current node, and add the selected node to the closed set. 
+    \item before expanding the current node, we check if the current node is the goal, if it is the goal, then we report success and track the path.
+    \item expand the current node, adding all the neighbors of that node that is not closed to the open set. When adding the neighbors, calculating the local cost and then the global cost of each neighbor based on the global cost of the current node. Also add the global cost of a neighbor node with its estimation code from the goal node to get its total cost. 
+    \item if the open set is empty and we still not find the goal point, we report the goal is not reachable.
+\end{itemize}
 
-This is an example of a table in \LaTeX
+% This is an example of a table in \LaTeX
 
-\begin{table}[ht]
-    \centering
-    \begin{tabular}{|c|c|}
-        System      & Measurement [\%] \\ \hline
-        Basic       & 40\% \\
-        Improved v1 & 42\% \\
-        Improved v2 & 43\% \\
-    \end{tabular}
-    \caption{Example table}
-    \label{tab:my_label}
-\end{table}
+% \begin{table}[ht]
+%     \centering
+%     \begin{tabular}{|c|c|}
+%         System      & Measurement [\%] \\ \hline
+%         Basic       & 40\% \\
+%         Improved v1 & 42\% \\
+%         Improved v2 & 43\% \\
+%     \end{tabular}
+%     \caption{Example table}
+%     \label{tab:my_label}
+% \end{table}
 
 \section{Assessing efficiency}
 
-Figure~\ref{fig:panda} shows and example of including a picture and giving it a caption and a label that you can reference in the text.
+% Figure~\ref{fig:panda} shows and example of including a picture and giving it a caption and a label that you can reference in the text.
 
-\begin{figure}[ht]
-\centering
-  \includegraphics[scale=0.4]{Panda.png}
-  \caption{This is Heidi's cat Panda.}
-  \label{fig:panda}
- \end{figure} 
+% \begin{figure}[ht]
+% \centering
+%   \includegraphics[scale=0.4]{Panda.png}
+%   \caption{This is Heidi's cat Panda.}
+%   \label{fig:panda}
+%  \end{figure} 
  
 \subsection{Assessing the efficiency of my branch-and-bound search algorithm}
-
+\begin{table}[ht]
+    \centering
+    \begin{tabular}{|c|c|c|c|}
+        Start point & End point   & Efficiency[\%] & Global Cost \\ \hline
+        0,0 & 12,12 & 24.107\% & 26 \\
+        0,0 & 6,6 & 10.4\% & 42 \\
+        0,0 & 4,4 & 42.857\% & 8 \\
+        2,6 & 1,13 & 17.105\% & 72 \\
+        6,14 & 1,5 & 10.625\% & 116 \\
+    \end{tabular}
+    \caption{BB Efficiency}
+    \label{tab:my_label}
+\end{table}
 \subsection{Assessing the efficiency of my A* search algorithm}
-
+\begin{table}[ht]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|}
+        Start & End   & Manhattan [\%] & Euclidean [\%] & HDiff [\%]\\ \hline
+        0,0 & 12,12 & 45.763\% & 42.188\% & 24.107\% \\
+        0,0 & 6,6 & 11.111\% & 10.74\% & 10.4\% \\
+        0,0 & 4,4 & 100\% & 100\% & 42.857\% \\
+        2,6 & 1,13 & 23.64\% & 23.214\% & 17.105\% \\
+        6,14 & 1,5 & 13.492\% & 13.178\% & 14.655\% \\
+    \end{tabular}
+    \caption{A Star Efficiency for different heuristics}
+    \label{tab:my_label}
+\end{table}
 \subsection{Comparing the two search strategies}
+\begin{table}[ht]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|}
+        Start & End &  BB[\%]  & Manhattan [\%] & Euclidean [\%] & HDiff [\%]\\ \hline
+        0,0 & 12,12 & 24.107\% & 45.763\% & 42.188\% & 24.107\% \\
+        0,0 & 6,6 & 10.4\% & 11.111\% & 10.74\% & 10.4\% \\
+        0,0 & 4,4 & 42.857\% & 100\% & 100\% & 42.857\% \\
+        2,6 & 1,13 & 17.105\% & 23.64\% & 23.214\% & 17.105\% \\
+        6,14 & 1,5 & 10.625\% & 13.492\% & 13.178\% & 14.655\% \\
+    \end{tabular}
+    \caption{A Star Efficiency for different heuristics}
+    \label{tab:my_label}
+\end{table}
 
 \section{Conclusions}
+As seen in the above experiments, A* search performs generally much better than the Branch and Bound search, with an average of over 50\% efficiency increase. With all three heuristics functions, Manhattan performs generally the best and Height difference is almost the same as Branch and Bound. However, in certain cases, when the goal is on a height much higher than the start, the height difference can perform the best in all heuristics functions. Also we find the efficiency has a relatively negative correlation with the global cost. That is the more difficult it is to get to the goal, the more likely the search may suffer an efficiency loss. 
 
+We can conclude that by incorporating an estimation to the cost to goal state in addition to the current global cost, we can greatly increase the efficiency, and Manhattan distance is the best estimate in this game. 
 
+All tasks are done in Search4
 
 \end{document}
